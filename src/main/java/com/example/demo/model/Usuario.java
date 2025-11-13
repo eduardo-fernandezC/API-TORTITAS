@@ -1,10 +1,18 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.List;
 
 @Entity
 @Data
@@ -35,16 +43,13 @@ public class Usuario {
     @JoinColumn(name = "id_rol")
     private Rol rol;
 
-    // Relación opcional con dirección principal
     @ManyToOne
     @JoinColumn(name = "id_direccion", nullable = true)
     private Direccion direccionPrincipal;
 
-    // Un usuario puede tener varias direcciones
     @OneToMany(mappedBy = "usuario")
     private List<Direccion> direcciones;
 
-    // Un usuario realiza muchos pedidos
     @OneToMany(mappedBy = "usuario")
     private List<Pedido> pedidos;
 }
